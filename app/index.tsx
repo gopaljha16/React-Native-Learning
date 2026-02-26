@@ -1,5 +1,27 @@
-import { Redirect } from "expo-router";
+import { View } from 'react-native'
+import React from 'react'
+import MyButton from '@/components/MyButton'
+import { useRouter } from 'expo-router'
 
-export default function Index() {
-  return <Redirect href="/(drawer)" />;
+
+
+const Index = () => {
+
+  const router = useRouter();
+  const onContinue = () => {
+    router.navigate("/login")
+  }
+
+  return (
+    <View style={{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+    
+     <MyButton title={"Continue"} onPress={onContinue}></MyButton>
+    </View>
+  )
 }
+
+export default Index
