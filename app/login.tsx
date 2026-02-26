@@ -1,12 +1,24 @@
 import { View, Text, TextInput, StyleSheet, SafeAreaView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MyButton from "@/components/MyButton";
 import { useRouter } from "expo-router";
 
 export default function Login() {
-  const router = useRouter();
+  const [value, setValue] = useState({
+    email: "",
+    password: "",
+  });   
 
+  useEffect(() => {
+    console.log("Current login values:", value);
+  }, []);
+
+  const router = useRouter();
   const onLogin = () => {
+    console.log("Login value:", value);
+  };
+
+  const onCreateAccount = () => {
     router.navigate("/singup");
   };
 
@@ -23,16 +35,27 @@ export default function Login() {
             keyboardType="email-address"
             autoCapitalize="none"
             style={styles.input}
+            onChangeText={(e) => setValue({...value, email: e})}
           />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Password</Text>
-          <TextInput placeholder="Enter password" secureTextEntry style={styles.input} />
+          <TextInput
+            placeholder="Enter password"
+            secureTextEntry
+            style={styles.input}
+            onChangeText={(e) => setValue({...value, password: e})}
+          />
         </View>
 
-        <MyButton title="Login" onPress={() => {}} />
-        <MyButton title="Create Account" onPress={onLogin} variant="secondary" style={styles.topGap} />
+        <MyButton title="Login" onPress={onLogin} />
+        <MyButton
+          title="Create Account"
+          onPress={onCreateAccount}
+          variant="secondary"
+          style={styles.topGap}
+        />
       </View>
     </SafeAreaView>
   );
